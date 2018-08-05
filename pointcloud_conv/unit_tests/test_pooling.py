@@ -10,7 +10,7 @@ from convlayer_elements import ConvElements
 
 class TestPooling(tf.test.TestCase):
 
-    def test_model(self):
+    def run_test(self):
         with self.test_session():
 
             B = 2
@@ -74,5 +74,4 @@ class TestPooling(tf.test.TestCase):
         return idx,startidx
 
 
-if __name__ == '__main__':
-    TestPooling().main()
+TestPooling().run_test()

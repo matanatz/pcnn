@@ -16,8 +16,8 @@ class TestConvLayer(tf.test.TestCase):
         L = 16
         M = 5
         sigma = np.sqrt(1 / I)
-        ndtype = np.float32
-        dtype = tf.float32
+        ndtype = np.float64
+        dtype = tf.float64
         X = np.random.rand(I, 3).astype(np.float64)
         F = np.random.rand(I, J).astype(np.float64)
         K = np.random.rand(J, M, L).astype(np.float64)
@@ -27,7 +27,6 @@ class TestConvLayer(tf.test.TestCase):
         dist = np.power(distance_matrix(X,X),2)
         Phi = np.exp(-dist / (2 * sigma * sigma))
 #       W = np.linalg.solve(Phi,F)
-
 
         W = np.reciprocal(np.expand_dims(np.sum(Phi,axis=1),1)) * F
 

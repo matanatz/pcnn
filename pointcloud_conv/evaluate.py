@@ -136,20 +136,20 @@ def eval_one_epoch(sess, ops, num_votes=1, topk=1):
             for vote_idx in range(num_votes):
 
                 if (vote_idx == num_votes - 1):
-                    rotated_data = current_data[start_idx:end_idx, :NUM_POINT, :]
+                    test_data = current_data[start_idx:end_idx, :NUM_POINT, :]
                 else:
-                    rotated_data = current_data[start_idx:end_idx,
+                    test_data = current_data[start_idx:end_idx,
                                    np.random.choice(np.arange(current_data.shape[1]), NUM_POINT, replace=False), :]
 
                 if (cur_batch_size < BATCH_SIZE):
-                    rotated_data = np.concatenate([rotated_data, np.zeros((BATCH_SIZE - cur_batch_size, NUM_POINT, 3))],
+                    test_data = np.concatenate([test_data, np.zeros((BATCH_SIZE - cur_batch_size, NUM_POINT, 3))],
                                                   0)
                     current_label_feed = np.concatenate(
                         [current_label[start_idx:end_idx], np.ones((BATCH_SIZE - cur_batch_size))],
                         0)
                 else:
                     current_label_feed = current_label[start_idx:end_idx]
-                feed_dict = {ops['pointclouds_pl']: rotated_data,
+                feed_dict = {ops['pointclouds_pl']: test_data,
                              ops['labels_pl']: current_label_feed,
                              ops['is_training_pl']: is_training,
                              ops['is_evaluate_pl']: is_evaluate}

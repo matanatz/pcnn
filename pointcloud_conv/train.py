@@ -235,7 +235,6 @@ def train():
 
                     pred_val = np.argmax(pred_val[:cur_batch_size], 1)
                     correct = np.sum(pred_val == current_label[start_idx:end_idx])
-                    confusion_matrix[pred_val,current_label[start_idx:end_idx]] = confusion_matrix[pred_val,current_label[start_idx:end_idx]] + 1
                     total_correct += correct
                     total_seen += cur_batch_size
                     loss_sum += (loss_val * BATCH_SIZE)
