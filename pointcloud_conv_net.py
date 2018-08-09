@@ -15,6 +15,25 @@ class Network:
         with_bn = self.conf.get_bool('with_bn')
         batch_size = pointclouds_pl.get_shape()[0].value
         num_point = pointclouds_pl.get_shape()[1].value
+
+        if (self.conf['with_rotations']):
+            cov = self.tf_cov(pointclouds_pl)
+            _, axis = tf.self_adjoint_eig(cov)
+            axis = tf.where(tf.linalg.det(axis) < 0, tf.matmul(axis, tf.tile(
+                tf.constant([[[0, 1], [1, 0]]], dtype=tf.float32), multiples=[axis.get_shape()[0], 1, 1])), axis)
+
+            indicies = [[[b, 0, 0], [b, 2, 0], [b, 0, 2], [b, 2, 2]] for b in list(range(batch_size))]
+            updates = tf.reshape(axis, [batch_size, -1])
+            updates = tf.reshape(tf.matmul(
+                tf.tile(tf.constant([[[0, 1, 0, 0], [0, 0, 0, 1], [1, 0, 0, 0], [0, 0, 1, 0]]], dtype=tf.float32),
+                        multiples=[batch_size, 1, 1]), tf.expand_dims(updates, axis=-1)), shape=[batch_size, -1])
+
+            alignment_transform = tf.scatter_nd(indices=indicies, updates=updates,
+                                                shape=[batch_size, 3, 3]) + tf.expand_dims(
+                tf.diag([0.0, 1.0, 0.0]), axis=0)
+            mean_points = tf.reduce_mean(pointclouds_pl, axis=1, keepdims=True)
+            pointclouds_pl = tf.matmul(pointclouds_pl - mean_points, alignment_transform) + mean_points
+
         ps_function_pl = tf.concat([pointclouds_pl,tf.ones(shape=[batch_size,num_point,1],dtype=tf.float32)],axis=2)
 
         pool_sizes_sigma = self.conf.get_list('pool_sizes_sigma')
@@ -49,3 +68,11 @@ class Network:
         loss = tf.nn.sparse_softmax_cross_entropy_with_logits(logits=pred, labels=label)
         return tf.reduce_mean(loss)
 
+    def tf_cov(self, x):
+        x = tf.transpose(tf.gather(tf.transpose(x, [2, 1, 0]), [0, 2]), [2, 1, 0])
+        mean_x = tf.reduce_sum(x, axis=1, keepdims=True)
+        mx = tf.matmul(tf.transpose(mean_x, [0, 2, 1]), mean_x)
+        vx = tf.einsum('bij,bik->bjk', x, x)
+        num = tf.cast(tf.shape(x)[1], tf.float32)
+        cov_xx = 1. / num * (vx - (1. / num) * mx)
+        return cov_xx

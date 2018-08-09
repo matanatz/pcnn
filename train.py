@@ -158,8 +158,13 @@ def train():
                     start_idx = batch_idx * BATCH_SIZE
                     end_idx = (batch_idx + 1) * BATCH_SIZE
 
+                    if (conf.get_bool('network.with_rotations')):
+                        rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, np.random.choice(
+                            np.arange(conf.get_int('no_points_sample')), NUM_POINT, False), :])
+                        augmented_data = provider.translate_point_cloud(rotated_data)
 
-                    augmented_data = provider.translate_point_cloud(current_data[start_idx:end_idx, np.random.choice(np.arange(conf.get_int('no_points_sample')),NUM_POINT,False), :])
+                    else:
+                        augmented_data = provider.translate_point_cloud(current_data[start_idx:end_idx, np.random.choice(np.arange(conf.get_int('no_points_sample')),NUM_POINT,False), :])
 
                     feed_dict = {ops['pointclouds_pl']: augmented_data,
                                  ops['labels_pl']: current_label[start_idx:end_idx],

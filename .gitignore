@@ -1,0 +1,17 @@
+/.idea/
+/data/*
+/exp_results/
+/core.* 
+*~*
+/.nfs*
+/__pycache__/
+*DS_Store*
+*.dropbox
+*.xm
+*.iml
+*.xml
+*.pyc
+*.txt
+*hdf5_data*
+*train_results*
+
