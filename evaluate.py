@@ -149,6 +149,9 @@ def eval_one_epoch(sess, ops, num_votes=1, topk=1):
                         0)
                 else:
                     current_label_feed = current_label[start_idx:end_idx]
+
+                test_data =  pv.rotate_point_cloud_by_angle(test_data,vote_idx/float(num_votes) * np.pi * 2)
+
                 feed_dict = {ops['pointclouds_pl']: test_data,
                              ops['labels_pl']: current_label_feed,
                              ops['is_training_pl']: is_training,
