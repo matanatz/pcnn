@@ -20,10 +20,10 @@ pyhocon, h5py.
 	python train.py
 
 * Training outputs are saved in:  
-	./exp_results/pcnn/[host_name]/[gpu]/[timstamp]
+	./exp_results/pcnn/[host_name]/[gpu]/[timestamp]
 
 * To run evaluation:  
-	python ./exp_results/pcnn/[host_name]/[gpu]/[timstamp]/evaluate.py
+	python ./exp_results/pcnn/[host_name]/[gpu]/[timestamp]/evaluate.py
   
 The file pointconv.conf containts additional confguration parameters. To train with a different config file:  
   python train.py --config file_name
