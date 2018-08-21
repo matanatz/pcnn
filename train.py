@@ -11,8 +11,6 @@ import numpy as np
 import datetime
 from pyhocon import ConfigFactory
 import argparse
-import json
-import requests
 
 np.random.seed(0)
 from pointcloud_conv_net import Network
