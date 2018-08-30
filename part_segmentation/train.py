@@ -91,11 +91,11 @@ if not os.path.exists(MODEL_STORAGE_PATH):
 os.system("""cp {0} "{1}" """.format('seg_network.py', MODEL_STORAGE_PATH))  # bkp of model def
 os.system("""cp {0} "{1}" """.format('test.py', MODEL_STORAGE_PATH))  # bkp of model def
 os.system("""cp {0} "{1}" """.format('testing_ply_file_list.txt', MODEL_STORAGE_PATH))  # bkp of model def
-os.system("""cp {0} "{1}" """.format('../convlayer_elements.py', MODEL_STORAGE_PATH))  # bkp of model def
+os.system("""cp {0} "{1}" """.format('../layers/convlayer_elements.py', MODEL_STORAGE_PATH))  # bkp of model def
 os.system("""cp {0} "{1}" """.format('../tf_util.py', MODEL_STORAGE_PATH))  # bkp of model def
-os.system("""cp {0} "{1}" """.format('../models/convlution_block.py', MODEL_STORAGE_PATH))  # bkp of model def
-os.system("""cp {0} "{1}" """.format('../models/deconvlution_block.py', MODEL_STORAGE_PATH))  # bkp of model def
-os.system("""cp {0} "{1}" """.format('../models/pooling.py', MODEL_STORAGE_PATH))  # bkp of model def
+os.system("""cp {0} "{1}" """.format('../layers/convolution_layer.py', MODEL_STORAGE_PATH))  # bkp of model def
+os.system("""cp {0} "{1}" """.format('../layers/deconvolution_layer.py', MODEL_STORAGE_PATH))  # bkp of model def
+os.system("""cp {0} "{1}" """.format('../layers/pooling.py', MODEL_STORAGE_PATH))  # bkp of model def
 os.system("""cp {0} "{1}" """.format('../confs/pointconv_seg.conf', MODEL_STORAGE_PATH))  # bkp of model def
 os.system("""cp {0} "{1}" """.format('../confs/pointconv.conf', MODEL_STORAGE_PATH))  # bkp of model def
 
