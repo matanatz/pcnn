@@ -13,7 +13,6 @@
 *.iml
 *.xml
 *.pyc
-*.txt
 *hdf5_data*
 *train_results*
 

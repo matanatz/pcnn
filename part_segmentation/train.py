@@ -396,7 +396,7 @@ def train():
 
             train_one_epoch(train_file_idx, epoch)
 
-            printout(flog, '\n<<< Testing on the test dataset ...')
+            printout(flog, '\n<<< Testing on the validation dataset ...')
             acc = eval_one_epoch(epoch)
 
             if (acc > acc_max):
