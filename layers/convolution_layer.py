@@ -64,7 +64,7 @@ class ConvLayer:
                                               elems=(b_tensor, tf.range(0, self.block_elemnts.num_of_translations)),
                                               dtype=dtype), axis=0)
 
-    def get_layer(self, functions_pl, with_bn, bn_decay,interpolation):
+    def get_layer(self, functions_pl, with_bn, bn_decay,interpolation,with_Relu = True):
 
         convlution_operation = self.get_convlution_operator(functions_pl,interpolation)
 
@@ -75,4 +75,7 @@ class ConvLayer:
 
             if (with_bn):
                 outputs = tf_util.batch_norm_template(outputs, self.is_training, 'bn', [0, 1], bn_decay)
-            return tf.nn.relu(outputs)
+
+            if (with_Relu):
+                outputs = tf.nn.relu(outputs)
+            return outputs

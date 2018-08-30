@@ -3,7 +3,7 @@ import tf_util as tf_util
 import sys
 sys.path.append('./layers')
 from pooling import PoolingLayer
-from convlution_layer import ConvLayer
+from convolution_layer import ConvLayer
 from convlayer_elements import ConvElements
 
 

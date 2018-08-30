@@ -320,7 +320,7 @@ if __name__ == '__main__':
     os.system("""cp {0} "{1}" """.format('pointcloud_conv_net.py', LOG_DIR))
     os.system("""cp {0} "{1}" """.format('evaluate.py', LOG_DIR))
     os.system("""cp {0} "{1}" """.format('tf_util.py', LOG_DIR))
-    os.system("""cp {0} "{1}" """.format('provider.py', LOG_DIR))
+    os.system("""cp {0} "{1}" """.format('segprovider.py', LOG_DIR))
     os.system("""cp train.py "{0}" """.format(LOG_DIR))
     os.system("""cp {0} "{1}" """.format(FLAGS.config,LOG_DIR))
     os.system("""cp ./confs/{0}.conf "{1}" """.format('pointconv', LOG_DIR))

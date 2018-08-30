@@ -1,5 +1,7 @@
 /.idea/
 /data/*
+/part_segmentation/segmentation_data/*
+/part_segmentation/train_results/*
 /exp_results/
 /core.* 
 *~*
