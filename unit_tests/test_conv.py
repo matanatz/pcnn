@@ -5,7 +5,7 @@ from pyhocon import ConfigFactory
 
 sys.path.append('../layers')
 from convlayer_elements import ConvElements
-from convlution_layer import ConvLayer
+from convolution_layer import ConvLayer
 
 
 class TestConvLayer(tf.test.TestCase):
