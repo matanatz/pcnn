@@ -158,10 +158,6 @@ def train():
             seg_pred = network.get_network_model(pointclouds_ph, input_label_ph, \
                     is_training=is_training_ph, bn_decay=bn_decay, cat_num=NUM_CATEGORIES, \
                     part_num=NUM_PART_CATS, batch_size=batch_size, num_point=point_num, weight_decay=FLAGS.wd)
-
-            # model.py defines both classification net and segmentation net, which share the common global feature extractor network.
-            # In model.get_loss, we define the total loss to be weighted sum of the classification and segmentation losses.
-            # Here, we only train for segmentation network. Thus, we set weight to be 1.0.
             loss, seg_loss, per_instance_seg_loss, per_instance_seg_pred_res  \
                 = network.get_loss(seg_pred, seg_ph)
 
